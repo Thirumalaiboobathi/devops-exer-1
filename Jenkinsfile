@@ -4,6 +4,12 @@ pipeline {
   environment {
     IMAGE_NAME = 'my-express-app'
     DOCKER_TAG = 'latest'
+    NODE_HOME = tool name: 'nodejs', type: 'NodeJS'
+    PATH = "${NODE_HOME}/bin:${env.PATH}"
+  }
+
+  tools {
+    nodejs 'Node_14'  // Replace 'Node_14' with the name of your Node.js installation in Global Tool Configuration
   }
 
   stages {
