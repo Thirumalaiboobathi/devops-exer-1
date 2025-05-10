@@ -2,7 +2,7 @@ pipeline {
   agent any
 
   tools {
-    nodejs 'nodejs'  // Must match the name in Global Tool Configuration
+    nodejs 'nodejs'  
   }
 
   environment {
@@ -31,18 +31,16 @@ pipeline {
       }
     }
 
-    stage('Push to DockerHub (Optional)') {
-      when {
-        expression { env.DOCKER_USERNAME && env.DOCKER_PASSWORD }
-      }
-      steps {
-        withDockerRegistry([credentialsId: 'dockerhub-creds', url: '']) {
-          script {
-            docker.image("${IMAGE_NAME}:${DOCKER_TAG}").push()
-          }
-        }
+    stage('Push to DockerHub') {
+  steps {
+    withDockerRegistry([credentialsId: 'dockerhub-creds', url: '']) {
+      script {
+        docker.image("${IMAGE_NAME}:${DOCKER_TAG}").push()
       }
     }
+  }
+}
+
   }
 
   post {
