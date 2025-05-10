@@ -35,18 +35,19 @@ pipeline {
   steps {
     withDockerRegistry([credentialsId: 'dockerhub-creds', url: '']) {
       script {
-        def imageName = "thirumalaiboobathi/my-express-app"
-        def fullImage = "${imageName}:${DOCKER_TAG}"
+        def localImage = "${IMAGE_NAME}:${DOCKER_TAG}" // e.g., my-express-app:latest
+        def remoteImage = "thirumalaiboobathi/my-express-app:${DOCKER_TAG}" // e.g., thirumalaiboobathi/my-express-app:latest
 
-        // Tag the built image correctly for DockerHub
-        docker.image("${IMAGE_NAME}:${DOCKER_TAG}").tag(fullImage)
+        // Tag the image correctly for Docker Hub
+        sh "docker tag ${localImage} ${remoteImage}"
 
-        // Push the tagged image
-        docker.image(fullImage).push()
+        // Push the image to Docker Hub
+        sh "docker push ${remoteImage}"
       }
     }
   }
 }
+
 
   }
 
