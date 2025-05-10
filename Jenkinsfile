@@ -35,7 +35,9 @@ pipeline {
   steps {
     withDockerRegistry([credentialsId: 'dockerhub-creds', url: '']) {
       script {
-        docker.image("${IMAGE_NAME}:${DOCKER_TAG}").push()
+        def imageName = "thirumalaiboobathi/my-express-app"
+        docker.image("${IMAGE_NAME}:${DOCKER_TAG}").tag(imageName)
+        docker.image(imageName).push()
       }
     }
   }
