@@ -8,8 +8,8 @@ pipeline {
     PATH = "${NODE_HOME}/bin:${env.PATH}"
   }
 
-  tools {
-    nodejs 'Node_14'  // Replace 'Node_14' with the name of your Node.js installation in Global Tool Configuration
+tools {
+    nodejs 'nodejs'  // Use the name from Global Tool Configuration
   }
 
   stages {
