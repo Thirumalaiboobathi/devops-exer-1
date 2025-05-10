@@ -1,20 +1,16 @@
 pipeline {
   agent any
 
+  tools {
+    nodejs 'nodejs'  // Must match the name in Global Tool Configuration
+  }
+
   environment {
     IMAGE_NAME = 'my-express-app'
     DOCKER_TAG = 'latest'
-    NODE_HOME = tool name: 'nodejs', type: 'NodeJS'
-    PATH = "${NODE_HOME}/bin:${env.PATH}"
-  }
-
-tools {
-    nodejs 'nodejs'  // Use the name from Global Tool Configuration
   }
 
   stages {
-    
-
     stage('Install Dependencies') {
       steps {
         sh 'npm install --legacy-peer-deps'
